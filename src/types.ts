@@ -11,11 +11,25 @@ export type ActivityType = "pattern" | "odd-one-out" | "sort-size" | "memory-mat
 
 export type PatternToken = {
   id: string;
-  kind: "fruit" | "shape" | "size" | "color";
+  kind: "fruit" | "shape" | "size" | "color" | "animal" | "sky";
   label: string;
   color: string;
   accent?: string;
-  shape: "apple" | "banana" | "circle" | "square" | "triangle" | "diamond" | "big-dot" | "small-dot";
+  shape:
+    | "apple"
+    | "banana"
+    | "circle"
+    | "square"
+    | "triangle"
+    | "diamond"
+    | "big-dot"
+    | "small-dot"
+    | "star"
+    | "heart"
+    | "sun"
+    | "moon"
+    | "fish"
+    | "cat";
   size?: "small" | "medium" | "large";
 };
 

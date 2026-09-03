@@ -20,7 +20,7 @@ export function LevelComplete({ activities, progress, onHome }: LevelCompletePro
   return (
     <section className="level-complete screen-enter">
       <div className="burst" aria-hidden="true" />
-      <Mascot mood="proud" />
+      <Mascot mood="proud" character="monkey" />
       <p className="eyebrow">Level complete</p>
       <h1>You finished the first trail!</h1>
       <div className="big-stars" aria-label="Celebration stars">★★★★★</div>

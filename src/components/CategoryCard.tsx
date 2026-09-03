@@ -6,20 +6,36 @@ type CategoryCardProps = {
   category: Category;
   completed: number;
   total: number;
-  onSelect: () => void;
+  onPlay: () => void;
 };
 
-export function CategoryCard({ category, completed, total, onSelect }: CategoryCardProps) {
+export function CategoryCard({ category, completed, total, onPlay }: CategoryCardProps) {
   const { play } = useSound();
 
+  function activate() {
+    play(category.available ? "boing" : "tap");
+    onPlay();
+  }
+
   return (
-    <button className="category-card" onClick={() => { play(category.available ? "start" : "tap"); onSelect(); }} type="button" aria-label={`${category.name} category`}>
+    <div
+      className="category-card"
+      role="button"
+      tabIndex={0}
+      onClick={activate}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activate();
+        }
+      }}
+      aria-label={`Play ${category.name}`}
+    >
       <CategoryIcon id={category.id} color={category.color} />
       <span className="category-copy">
         <strong>{category.name}</strong>
         <small>{category.available ? `${completed}/${total}` : "Soon"}</small>
       </span>
-      <span className="category-arrow" aria-hidden="true">&rsaquo;</span>
-    </button>
+    </div>
   );
 }

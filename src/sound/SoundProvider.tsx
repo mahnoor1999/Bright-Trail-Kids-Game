@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { loadChildName, saveChildName } from "../game/storage";
 
-type SoundName = "tap" | "start" | "correct" | "tryAgain" | "stars" | "celebrate" | "complete" | "reset";
+type SoundName = "tap" | "start" | "correct" | "tryAgain" | "stars" | "celebrate" | "complete" | "reset" | "boing" | "giggle";
 
 type SoundContextValue = {
   enabled: boolean;
@@ -20,6 +20,7 @@ type Note = {
   duration: number;
   type?: OscillatorType;
   gain?: number;
+  sweepTo?: number;
 };
 
 const cueMap: Record<SoundName, Note[]> = {
@@ -48,6 +49,10 @@ const cueMap: Record<SoundName, Note[]> = {
     { frequency: 783.99, start: 0.16, duration: 0.12, type: "triangle", gain: 0.13 },
     { frequency: 1046.5, start: 0.28, duration: 0.24, type: "triangle", gain: 0.12 },
     { frequency: 1318.51, start: 0.5, duration: 0.2, type: "triangle", gain: 0.1 },
+    { frequency: 720, start: 0.78, duration: 0.07, type: "square", gain: 0.09 },
+    { frequency: 330, start: 0.86, duration: 0.07, type: "square", gain: 0.09 },
+    { frequency: 720, start: 0.94, duration: 0.07, type: "square", gain: 0.09 },
+    { frequency: 330, start: 1.02, duration: 0.09, type: "square", gain: 0.09 },
   ],
   complete: [
     { frequency: 392, start: 0, duration: 0.11, type: "triangle", gain: 0.13 },
@@ -57,6 +62,15 @@ const cueMap: Record<SoundName, Note[]> = {
     { frequency: 1046.5, start: 0.5, duration: 0.32, type: "triangle", gain: 0.11 },
   ],
   reset: [{ frequency: 196, start: 0, duration: 0.13, type: "sine", gain: 0.07 }],
+  boing: [
+    { frequency: 520, sweepTo: 140, start: 0, duration: 0.16, type: "sine", gain: 0.16 },
+    { frequency: 160, sweepTo: 400, start: 0.15, duration: 0.12, type: "sine", gain: 0.12 },
+  ],
+  giggle: [
+    { frequency: 520, start: 0, duration: 0.05, type: "triangle", gain: 0.1 },
+    { frequency: 620, start: 0.07, duration: 0.05, type: "triangle", gain: 0.1 },
+    { frequency: 740, start: 0.14, duration: 0.07, type: "triangle", gain: 0.1 },
+  ],
 };
 
 // Chrome silently drops speech if the SpeechSynthesisUtterance is garbage-collected
@@ -235,6 +249,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
         oscillator.type = note.type ?? "sine";
         oscillator.frequency.setValueAtTime(note.frequency, startsAt);
+        if (note.sweepTo) {
+          oscillator.frequency.exponentialRampToValueAtTime(note.sweepTo, endsAt);
+        }
         gain.gain.setValueAtTime(0.0001, startsAt);
         gain.gain.exponentialRampToValueAtTime(note.gain ?? 0.05, startsAt + 0.012);
         gain.gain.exponentialRampToValueAtTime(0.0001, endsAt);

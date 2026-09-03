@@ -17,7 +17,7 @@ export function Celebration({ show, message, stars, onContinue }: CelebrationPro
     <div className="celebration" role="dialog" aria-label={message}>
       <Confetti active={show} />
       <div className="celebration-card">
-        <Mascot mood="proud" />
+        <Mascot mood="proud" character="monkey" />
         <h2>{message}</h2>
         <div className="earned-stars" aria-label={`${stars} stars earned`}>
           {Array.from({ length: stars }).map((_, index) => (

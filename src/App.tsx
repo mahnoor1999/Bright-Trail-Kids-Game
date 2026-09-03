@@ -74,14 +74,7 @@ export function App() {
       onParent={() => setScreen("parent")}
     >
       {screen === "home" && (
-        <Home
-          progress={progress}
-          onCategory={(categoryId) => {
-            setSelectedCategory(categoryId);
-            setScreen("categories");
-          }}
-          onContinue={() => startCategory("logic")}
-        />
+        <Home progress={progress} onPlay={startCategory} />
       )}
       {screen === "categories" && (
         <CategorySelection
@@ -162,7 +155,7 @@ export function App() {
         />
       )}
       {screen === "activity" && !activeActivity && (
-        <Home progress={progress} onCategory={(categoryId) => setSelectedCategory(categoryId)} onContinue={() => startCategory("logic")} />
+        <Home progress={progress} onPlay={startCategory} />
       )}
       {screen === "level-complete" && (
         <LevelComplete

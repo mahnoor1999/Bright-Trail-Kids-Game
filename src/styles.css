@@ -169,6 +169,56 @@ main {
 .home-screen {
   display: grid;
   gap: 22px;
+  isolation: isolate;
+  position: relative;
+}
+
+.mascot-backdrop {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.mascot-backdrop-item {
+  filter: saturate(0.7);
+  opacity: 0.16;
+  position: absolute;
+  width: 220px;
+}
+
+.mascot-backdrop-item-0 {
+  left: -40px;
+  top: -30px;
+  transform: rotate(-12deg);
+  width: 200px;
+}
+
+.mascot-backdrop-item-1 {
+  right: -30px;
+  top: 40px;
+  transform: rotate(10deg);
+  width: 180px;
+}
+
+.mascot-backdrop-item-2 {
+  bottom: -50px;
+  left: 8%;
+  transform: rotate(8deg);
+  width: 190px;
+}
+
+.mascot-backdrop-item-3 {
+  bottom: -20px;
+  right: 6%;
+  transform: rotate(-9deg);
+  width: 170px;
+}
+
+.mascot-backdrop-item .mascot {
+  animation: none;
+  max-width: none;
 }
 
 .hero-panel {
@@ -491,7 +541,7 @@ h2 {
   color: var(--ink);
   display: flex;
   gap: 12px;
-  min-height: 128px;
+  min-height: 148px;
   padding: 15px;
   text-align: left;
   transition: transform 160ms ease, box-shadow 160ms ease;
@@ -499,8 +549,8 @@ h2 {
 
 .category-icon {
   flex: 0 0 auto;
-  height: 68px;
-  width: 68px;
+  height: 92px;
+  width: 92px;
 }
 
 .category-copy {
@@ -520,12 +570,6 @@ h2 {
   font-weight: 900;
 }
 
-.category-arrow {
-  color: rgba(38, 48, 77, 0.36);
-  font-size: 1.8rem;
-  font-weight: 900;
-  margin-left: auto;
-}
 
 .mascot {
   animation: mascotBob 2.6s ease-in-out infinite;
@@ -697,6 +741,17 @@ h2 {
 .activity-screen {
   display: grid;
   gap: 18px;
+  isolation: isolate;
+  position: relative;
+}
+
+.activity-screen .mascot-backdrop-item {
+  bottom: -10%;
+  left: auto;
+  right: -8%;
+  top: auto;
+  transform: rotate(-8deg);
+  width: 260px;
 }
 
 .activity-header {
@@ -1475,7 +1530,12 @@ h2 {
   }
 
   .category-card {
-    min-height: 98px;
+    min-height: 110px;
+  }
+
+  .category-icon {
+    height: 64px;
+    width: 64px;
   }
 
   .mascot-hear-button {

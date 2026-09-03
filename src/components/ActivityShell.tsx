@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Celebration } from "./Celebration";
-import { Mascot } from "./Mascot";
+import { Mascot, type MascotCharacter } from "./Mascot";
+import { MascotBackdrop } from "./MascotBackdrop";
 import { StarReward } from "./StarReward";
 import { useSound } from "../sound/SoundProvider";
 
@@ -9,6 +10,7 @@ type ActivityShellProps = {
   prompt: string;
   stars: number;
   mascotMood: "thinking" | "proud";
+  character: MascotCharacter;
   celebrating: boolean;
   celebrationMessage: string;
   starsFlying: boolean;
@@ -22,6 +24,7 @@ export function ActivityShell({
   prompt,
   stars,
   mascotMood,
+  character,
   celebrating,
   celebrationMessage,
   starsFlying,
@@ -33,6 +36,7 @@ export function ActivityShell({
 
   return (
     <section className="activity-screen screen-enter">
+      <MascotBackdrop characters={[character]} />
       <div className="activity-header">
         <button className="soft-link" type="button" onClick={() => { play("tap"); onExit(); }}>Home</button>
         <div className="difficulty-stars" aria-label={`${stars} star activity`}>
@@ -50,9 +54,9 @@ export function ActivityShell({
             className="mascot-hear-button"
             type="button"
             aria-label="Hear the question again"
-            onClick={() => { play("tap"); speak(prompt); }}
+            onClick={() => { play("giggle"); speak(prompt); }}
           >
-            <Mascot mood={mascotMood} />
+            <Mascot mood={mascotMood} character={character} />
             <span className="mascot-hear-badge" aria-hidden="true">🔊</span>
           </button>
         </div>
@@ -61,7 +65,12 @@ export function ActivityShell({
       </div>
 
       <StarReward count={stars} active={starsFlying} />
-      <Celebration show={celebrating} message={celebrationMessage} stars={stars} onContinue={() => { play("start"); onContinue(); }} />
+      <Celebration
+        show={celebrating}
+        message={celebrationMessage}
+        stars={stars}
+        onContinue={() => { play("start"); onContinue(); }}
+      />
     </section>
   );
 }

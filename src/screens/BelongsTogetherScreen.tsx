@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ActivityResult, BelongsTogetherActivityData, CategoryId } from "../types";
 import { ActivityShell } from "../components/ActivityShell";
+import { getCharacterForCategory } from "../data/categories";
 import { TokenIcon } from "../components/IconTile";
 import { useSound } from "../sound/SoundProvider";
 
@@ -67,6 +68,7 @@ export function BelongsTogetherScreen({ activity, categoryId, onAward, onContinu
       prompt={activity.prompt}
       stars={activity.stars}
       mascotMood={mascotMood}
+      character={getCharacterForCategory(categoryId)}
       celebrating={celebrating}
       celebrationMessage={message}
       starsFlying={starsFlying}

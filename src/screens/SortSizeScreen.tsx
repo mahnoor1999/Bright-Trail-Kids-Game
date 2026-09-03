@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ActivityResult, CategoryId, SortSizeActivityData } from "../types";
 import { ActivityShell } from "../components/ActivityShell";
+import { getCharacterForCategory } from "../data/categories";
 import { TokenIcon } from "../components/IconTile";
 import { useSound } from "../sound/SoundProvider";
 
@@ -74,6 +75,7 @@ export function SortSizeScreen({ activity, categoryId, onAward, onContinue, onEx
       prompt={activity.prompt}
       stars={activity.stars}
       mascotMood={mascotMood}
+      character={getCharacterForCategory(categoryId)}
       celebrating={celebrating}
       celebrationMessage={message}
       starsFlying={starsFlying}

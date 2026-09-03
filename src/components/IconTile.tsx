@@ -84,6 +84,41 @@ export function TokenIcon({ token }: TokenIconProps) {
       {token.shape === "diamond" && <path d="M48 15 81 48 48 81 15 48 48 15Z" fill={token.color} />}
       {token.shape === "big-dot" && <circle cx="48" cy="48" r="31" fill={token.color} />}
       {token.shape === "small-dot" && <circle cx="48" cy="48" r="17" fill={token.color} />}
+      {token.shape === "star" && (
+        <path
+          d="M48 16 55.6 37.5 78.4 38.1 60.4 52 66.8 73.9 48 61 29.2 73.9 35.6 52 17.6 38.1 40.4 37.5Z"
+          fill={token.color}
+        />
+      )}
+      {token.shape === "heart" && (
+        <path d="M48 78C20 58 10 40 22 28c9-9 22-6 26 6 4-12 17-15 26-6 12 12 2 30-26 50Z" fill={token.color} />
+      )}
+      {token.shape === "sun" && (
+        <>
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+            <rect key={angle} x="45" y="6" width="6" height="16" rx="3" fill={token.color} transform={`rotate(${angle} 48 48)`} />
+          ))}
+          <circle cx="48" cy="48" r="19" fill={token.color} />
+        </>
+      )}
+      {token.shape === "moon" && <path d="M52 18a30 30 0 1 0 0 60a44 44 0 0 1 0-60Z" fill={token.color} />}
+      {token.shape === "fish" && (
+        <>
+          <ellipse cx="42" cy="48" rx="24" ry="17" fill={token.color} />
+          <path d="M66 41 82 32 82 64 66 55Z" fill={token.accent ?? token.color} />
+          <circle cx="30" cy="44" r="3.4" fill="#26304d" />
+        </>
+      )}
+      {token.shape === "cat" && (
+        <>
+          <path d="M25 30 33 46 20 46Z" fill={token.color} />
+          <path d="M71 30 63 46 76 46Z" fill={token.color} />
+          <circle cx="48" cy="54" r="26" fill={token.color} />
+          <circle cx="39" cy="52" r="3.4" fill="#26304d" />
+          <circle cx="57" cy="52" r="3.4" fill="#26304d" />
+          <path d="M44 62q4 4 8 0" stroke="#26304d" strokeWidth="3" strokeLinecap="round" fill="none" />
+        </>
+      )}
       <path className="token-shine" d="M31 31c5-6 12-9 20-9" />
     </svg>
   );

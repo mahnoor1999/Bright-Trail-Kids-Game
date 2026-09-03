@@ -1,4 +1,5 @@
 import type { CategoryId } from "../types";
+import type { MascotCharacter } from "../components/Mascot";
 
 export type Category = {
   id: CategoryId;
@@ -18,3 +19,17 @@ export const categories: Category[] = [
   { id: "shapes", name: "Shapes", shortName: "Shapes", description: "Sort small to big", color: "#4d9de0", available: true },
   { id: "patterns", name: "Patterns", shortName: "Patterns", description: "What comes next?", color: "#b76ee8", available: true },
 ];
+
+const characterByCategory: Record<CategoryId, MascotCharacter> = {
+  logic: "blob",
+  patterns: "blob",
+  math: "fox",
+  shapes: "fox",
+  attention: "cat",
+  puzzles: "cat",
+  memory: "ghost",
+};
+
+export function getCharacterForCategory(categoryId: CategoryId): MascotCharacter {
+  return characterByCategory[categoryId] ?? "blob";
+}

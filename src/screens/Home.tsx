@@ -1,48 +1,20 @@
 import { categories } from "../data/categories";
-import { getActivitiesForCategory, getLevelProgress, getNextActivity } from "../game/progression";
+import { getActivitiesForCategory } from "../game/progression";
 import type { CategoryId, ProgressState } from "../types";
 import { CategoryCard } from "../components/CategoryCard";
-import { Mascot } from "../components/Mascot";
-import { ProgressBar } from "../components/ProgressBar";
-import { StarCounter } from "../components/StarCounter";
-import { useSound } from "../sound/SoundProvider";
+import { MascotBackdrop } from "../components/MascotBackdrop";
 
 type HomeProps = {
   progress: ProgressState;
-  onCategory: (categoryId: CategoryId) => void;
-  onContinue: () => void;
+  onPlay: (categoryId: CategoryId) => void;
 };
 
-export function Home({ progress, onCategory, onContinue }: HomeProps) {
-  const { play } = useSound();
-  const next = getNextActivity(progress, "logic");
+export function Home({ progress, onPlay }: HomeProps) {
   const dailyDone = Math.min(Object.keys(progress.completedActivities).length, 3);
 
   return (
     <section className="home-screen screen-enter">
-      <div className="hero-panel">
-        <div className="avatar-card">
-          <div className="child-avatar" aria-label="Child avatar">
-            <span />
-          </div>
-          <div>
-            <p className="eyebrow">Ready to play?</p>
-            <h1>Let&apos;s Learn!</h1>
-          </div>
-        </div>
-        <div className="hero-mascot">
-          <Mascot />
-        </div>
-        <div className="hero-stats">
-          <StarCounter stars={progress.totalStars} />
-          <div className="level-pill">Level {progress.currentLevel}</div>
-        </div>
-        <ProgressBar value={getLevelProgress(progress, "logic")} label="Trail progress" />
-        <button className="primary-action continue-action" type="button" onClick={() => { play("start"); onContinue(); }} disabled={!next}>
-          Continue Learning
-        </button>
-      </div>
-
+      <MascotBackdrop />
       <div className="daily-strip">
         <div>
           <strong>Daily goal</strong>
@@ -69,7 +41,7 @@ export function Home({ progress, onCategory, onContinue }: HomeProps) {
               category={category}
               completed={completed}
               total={total}
-              onSelect={() => onCategory(category.id)}
+              onPlay={() => onPlay(category.id)}
             />
           );
         })}

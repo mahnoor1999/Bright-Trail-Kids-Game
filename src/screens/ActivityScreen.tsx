@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ActivityResult, CategoryId, PatternActivityData } from "../types";
 import { ActivityShell } from "../components/ActivityShell";
+import { getCharacterForCategory } from "../data/categories";
 import { AnswerOption } from "../components/AnswerOption";
 import { TokenIcon } from "../components/IconTile";
 import { useSound } from "../sound/SoundProvider";
@@ -68,6 +69,7 @@ export function ActivityScreen({ activity, categoryId, onAward, onContinue, onEx
       prompt={activity.prompt}
       stars={activity.stars}
       mascotMood={mascotMood}
+      character={getCharacterForCategory(categoryId)}
       celebrating={celebrating}
       celebrationMessage={message}
       starsFlying={starsFlying}

@@ -51,7 +51,7 @@ export function CategorySelection({ progress, selectedCategory, onBack, onStart 
               category={category}
               completed={completed}
               total={total}
-              onSelect={() => onStart(category.id)}
+              onPlay={() => onStart(category.id)}
             />
           );
         })}
